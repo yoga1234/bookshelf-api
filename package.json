@@ -1,0 +1,27 @@
+{
+  "name": "6.bookshelf-api",
+  "version": "1.0.0",
+  "description": "A simple backend with nodejs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoga1234/bookshelf-api.git"
+  },
+  "keywords": [
+    "nodejs",
+    "javascript",
+    "yogasmara"
+  ],
+  "author": "yogasmara",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yoga1234/bookshelf-api/issues"
+  },
+  "homepage": "https://github.com/yoga1234/bookshelf-api#readme",
+  "dependencies": {
+    "@hapi/hapi": "^20.1.2"
+  }
+}
