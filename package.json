@@ -4,7 +4,7 @@
   "description": "A simple backend with nodejs",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/yoga1234/bookshelf-api#readme",
   "dependencies": {
-    "@hapi/hapi": "^20.1.2"
+    "@hapi/hapi": "^20.1.2",
+    "nanoid": "^3.1.22"
   },
   "devDependencies": {
     "eslint": "^7.25.0",

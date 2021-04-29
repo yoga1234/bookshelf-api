@@ -1,3 +1,3 @@
 const books = []
 
-export default notes
+module.exports = books
