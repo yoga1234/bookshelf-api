@@ -23,5 +23,9 @@
   "homepage": "https://github.com/yoga1234/bookshelf-api#readme",
   "dependencies": {
     "@hapi/hapi": "^20.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.25.0",
+    "nodemon": "^2.0.7"
   }
 }
