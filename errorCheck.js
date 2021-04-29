@@ -16,4 +16,13 @@ const pageCountCheck = (h) => {
   return response
 }
 
-module.exports = { nameCheck, pageCountCheck }
+const getBookWithIdCheck = (h) => {
+  const response = h.response({
+    status: 'fail',
+    message: 'Buku tidak ditemukan'
+  })
+  response.code(404)
+  return response
+}
+
+module.exports = { nameCheck, pageCountCheck, getBookWithIdCheck }

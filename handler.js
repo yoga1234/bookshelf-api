@@ -1,6 +1,6 @@
 const { nanoid } = require('nanoid')
 const books = require('./books')
-const { nameCheck, pageCountCheck } = require('./errorCheck')
+const { nameCheck, pageCountCheck, getBookWithIdCheck } = require('./errorCheck')
 
 const addBookHandler = (request, h) => {
   const {
@@ -91,12 +91,7 @@ const getBookByIdHandler = (request, h) => {
     }
   }
 
-  const response = h.response({
-    status: 'fail',
-    message: 'Buku tidak ditemukan'
-  })
-  response.code(404)
-  return response
+  return getBookWithIdCheck(h)
 }
 
 module.exports = { addBookHandler, getAllBooksHandler, getBookByIdHandler }
