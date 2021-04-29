@@ -18,6 +18,16 @@ const addBookHandler = (request, h) => {
   const insertedAt = new Date().toISOString()
   const updatedAt = insertedAt
 
+  // check if name is empty
+  if(name === undefined) {
+    const response = h.response({
+      status: 'fail',
+      message: 'Gagal menambahkan buku. Mohon isi nama buku'
+    })
+    response.code(400)
+    return response
+  }
+
   const newBook = {
     id, name, year, author, summary, publisher, pageCount, readPage, finished, reading, insertedAt, updatedAt
   }
@@ -31,7 +41,7 @@ const addBookHandler = (request, h) => {
       status: 'success',
       message: 'Buku berhasil ditambahkan',
       data: {
-        bookId: id
+        newBook
       }
     })
     response.code(201)
