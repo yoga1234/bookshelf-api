@@ -1,5 +1,6 @@
 const { nanoid } = require('nanoid')
 const books = require('./books')
+const { nameCheck, pageCountCheck } = require('./errorCheck')
 
 const addBookHandler = (request, h) => {
   const {
@@ -20,22 +21,12 @@ const addBookHandler = (request, h) => {
 
   // check if name is empty
   if(name === undefined) {
-    const response = h.response({
-      status: 'fail',
-      message: 'Gagal menambahkan buku. Mohon isi nama buku'
-    })
-    response.code(400)
-    return response
+    return nameCheck(h)
   }
 
   // check if readPage is bigger
   if(readPage > pageCount) {
-    const response = h.response({
-      status: 'fail',
-      message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar daripada readCount'
-    })
-    response.code(400)
-    return response
+    return pageCountCheck(h)
   }
 
   const newBook = {
