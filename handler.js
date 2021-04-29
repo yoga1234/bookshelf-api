@@ -14,7 +14,7 @@ const addBookHandler = (request, h) => {
   } = request.payload
 
   const id = nanoid()
-  const finished = 'belum ada'
+  const finished = (pageCount === readPage) ? true : false
   const insertedAt = new Date().toISOString()
   const updatedAt = insertedAt
 
@@ -31,7 +31,7 @@ const addBookHandler = (request, h) => {
       status: 'success',
       message: 'Buku berhasil ditambahkan',
       data: {
-        newBook
+        bookId: id
       }
     })
     response.code(201)
