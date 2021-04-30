@@ -58,23 +58,59 @@ const addBookHandler = (request, h) => {
 }
 
 // return all books
-const allBookReturn = () => {
-  let bookReturn = books.map((book) => {
-    return {
-      "id": book.id,
-      "name": book.name,
-      "publisher": book.publisher
-    }
-  })
+const allBookReturn = (condition) => {
+  let bookReturn
+  if(condition === 'allBooks') {
+    bookReturn = books.map((book) => {
+      return {
+        "id": book.id,
+        "name": book.name,
+        "publisher": book.publisher
+      }
+    })
+  }
+
+  if(condition === 'readingTrue') {
+    bookReturn = books.map((book) => {
+      if(book.reading === true) {
+        console.log(book.reading)
+        return {
+          "id": book.id,
+          "name": book.name,
+          "publisher": book.publisher
+        }
+      }
+    })
+    bookReturn = bookReturn.filter(function(element) {
+      return element !== undefined
+    })
+    console.log(bookReturn)
+  }
   
   return bookReturn
 }
-const getAllBooksHandler = () => ({
-  status: 'success',
-  data: {
-    books: allBookReturn()
+const getAllBooksHandler = (request) => {
+  const { reading } = request.query
+  if(reading === '1') {
+    console.log('reading 1')
+    return {
+      status: 'success',
+      data: {
+        books: allBookReturn('readingTrue')
+      }
+    }
   }
-})
+  if(reading === '0') {
+    console.log('reading 0')
+  }
+
+  return {
+    status: 'success',
+    data: {
+      books: allBookReturn('allBooks')
+    }
+  }
+}
 
 // getting a book
 const getBookByIdHandler = (request, h) => {
