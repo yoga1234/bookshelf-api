@@ -1,6 +1,6 @@
 const { nanoid } = require('nanoid')
 const books = require('./books')
-const { nameCheck, pageCountCheck, getBookWithIdCheck } = require('./errorCheck')
+const { nameCheck, pageCountCheck, getBookWithIdCheck, editNameCheck, editPageCountCheck } = require('./errorCheck')
 
 const addBookHandler = (request, h) => {
   const {
@@ -108,8 +108,16 @@ const editBookByIdHandler = (request, h) => {
     reading
   } = request.payload
   const updatedAt = new Date().toISOString()
-
   const index = books.findIndex((book) => book.id === id)
+
+  // check if name is empty
+  if(name === undefined) {
+    return editNameCheck(h)
+  }
+  // check if readPage is bigger
+  if(readPage > pageCount) {
+    return editPageCountCheck(h)
+  }
 
   if(index !== -1) {
     books[index] = {
