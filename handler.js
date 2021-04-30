@@ -74,7 +74,6 @@ const allBookReturn = (condition) => {
   if(condition === 'readingTrue') {
     bookReturn = books.map((book) => {
       if(book.reading === true) {
-        console.log(book.reading)
         return {
           "id": book.id,
           "name": book.name,
@@ -85,14 +84,12 @@ const allBookReturn = (condition) => {
     bookReturn = bookReturn.filter(function(element) {
       return element !== undefined
     })
-    console.log(bookReturn)
   }
 
   // reading false
   if(condition === 'readingFalse') {
     bookReturn = books.map((book) => {
       if(book.reading !== true) {
-        console.log(book.reading)
         return {
           "id": book.id,
           "name": book.name,
@@ -103,13 +100,62 @@ const allBookReturn = (condition) => {
     bookReturn = bookReturn.filter(function(element) {
       return element !== undefined
     })
-    console.log(bookReturn)
   }
-  
+
+  // finished true
+  if(condition === 'finishedTrue') {
+    bookReturn = books.map((book) => {
+      if(book.finished === true) {
+        return {
+          "id": book.id,
+          "name": book.name,
+          "publisher": book.publisher
+        }
+      }
+    })
+    bookReturn = bookReturn.filter(function(element) {
+      return element !== undefined
+    })
+  }
+
+  // finished false
+  if(condition === 'finishedFalse') {
+    bookReturn = books.map((book) => {
+      if(book.finished !== true) {
+        return {
+          "id": book.id,
+          "name": book.name,
+          "publisher": book.publisher
+        }
+      }
+    })
+    bookReturn = bookReturn.filter(function(element) {
+      return element !== undefined
+    })
+  }
+
   return bookReturn
 }
+
+const getBookBasedName = (name) => {
+  let bookReturn
+  bookReturn = books.map((book) => {
+    if(book.name.toLowerCase().match(name.toLowerCase(), 'g') !== null) {
+      return {
+        "id": book.id,
+        "name": book.name,
+        "publisher": book.publisher
+      }
+    }
+  })
+  bookReturn = bookReturn.filter(function(element) {
+    return element !== undefined
+  })
+  return bookReturn
+}
+
 const getAllBooksHandler = (request) => {
-  const { reading, finished } = request.query
+  const { reading, finished, name } = request.query
   // reading check
   if(reading === '1') {
     return {
@@ -124,6 +170,34 @@ const getAllBooksHandler = (request) => {
       status: 'success',
       data: {
         books: allBookReturn('readingFalse')
+      }
+    }
+  }
+
+  // finished check
+  if(finished === '1') {
+    return {
+      status: 'success',
+      data: {
+        books: allBookReturn('finishedTrue')
+      }
+    }
+  }
+  if(finished === '0') {
+    return {
+      status: 'success',
+      data: {
+        books: allBookReturn('finishedFalse')
+      }
+    }
+  }
+
+  // name check
+  if(name !==  undefined) {
+    return {
+      status: 'success',
+      data:  {
+        books: getBookBasedName(name) // here
       }
     }
   }
