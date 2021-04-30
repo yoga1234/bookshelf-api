@@ -70,9 +70,28 @@ const allBookReturn = (condition) => {
     })
   }
 
+  // reading true
   if(condition === 'readingTrue') {
     bookReturn = books.map((book) => {
       if(book.reading === true) {
+        console.log(book.reading)
+        return {
+          "id": book.id,
+          "name": book.name,
+          "publisher": book.publisher
+        }
+      }
+    })
+    bookReturn = bookReturn.filter(function(element) {
+      return element !== undefined
+    })
+    console.log(bookReturn)
+  }
+
+  // reading false
+  if(condition === 'readingFalse') {
+    bookReturn = books.map((book) => {
+      if(book.reading !== true) {
         console.log(book.reading)
         return {
           "id": book.id,
@@ -90,9 +109,9 @@ const allBookReturn = (condition) => {
   return bookReturn
 }
 const getAllBooksHandler = (request) => {
-  const { reading } = request.query
+  const { reading, finished } = request.query
+  // reading check
   if(reading === '1') {
-    console.log('reading 1')
     return {
       status: 'success',
       data: {
@@ -101,7 +120,12 @@ const getAllBooksHandler = (request) => {
     }
   }
   if(reading === '0') {
-    console.log('reading 0')
+    return {
+      status: 'success',
+      data: {
+        books: allBookReturn('readingFalse')
+      }
+    }
   }
 
   return {
